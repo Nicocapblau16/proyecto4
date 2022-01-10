@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1996815852549284091}
   - component: {fileID: 738898354845119966}
   - component: {fileID: 9030312903869305037}
+  - component: {fileID: 4823651938141261773}
   m_Layer: 0
   m_Name: Pizza
   m_TagString: Good
@@ -107,5 +108,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 765a1883b5c1cd840aabeb41627fff88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticle: {fileID: 2852413659578719189, guid: ca11de6347ee648e78e32d5edb051192, type: 3}
+  points: 5
+--- !u!114 &4823651938141261773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996815852551487035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80a53a85366c84c830ab858a35b2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

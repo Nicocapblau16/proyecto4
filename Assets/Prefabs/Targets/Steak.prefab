@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5626452297011324546}
   - component: {fileID: 5400576685552452559}
   - component: {fileID: -4612685828598894031}
+  - component: {fileID: 8539060863586141077}
   m_Layer: 0
   m_Name: Steak
   m_TagString: Good
@@ -107,5 +108,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 765a1883b5c1cd840aabeb41627fff88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticle: {fileID: 2852413659578719189, guid: 066dd222b602e49afbe0f2b9c3c96ddb, type: 3}
+  points: 5
+--- !u!114 &8539060863586141077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626452297013284046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80a53a85366c84c830ab858a35b2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3889057370497533620}
   - component: {fileID: 6515842017698357671}
   - component: {fileID: 6186223515264814939}
+  - component: {fileID: 6035684847688332071}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Bad
@@ -107,5 +108,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 765a1883b5c1cd840aabeb41627fff88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticle: {fileID: 2852413659578719189, guid: ad604245d81df4d9faffb305340f5797, type: 3}
+  points: -7
+--- !u!114 &6035684847688332071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3867821073191959212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee80a53a85366c84c830ab858a35b2e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

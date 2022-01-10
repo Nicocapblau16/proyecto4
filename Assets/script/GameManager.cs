@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -10,30 +11,29 @@ public class GameManager : MonoBehaviour
     public bool gameOver;
     public GameObject[] targetPrefabs;
     public Vector3 randomSpawnPos;
-    public List<Vector3> targetPosition;
+    public List<Vector3> targetPositions; // Lista que guarda las posiciones ocupadas en la rejilla
     public TextMeshProUGUI scoreText;
+    public GameObject gameOverPanel;
+    public GameObject menuPanel;
+
 
     private float minX = -3.75f;
     private float minY = -3.75f;
     private float spaceBetweenSquares = 2.5f;
     private int numberRows = 4;
-    private float spawnRate = 2f;
-    private int score = 0;
+    private float spawnRate = 1f;
+    private int score; // Puntuación del jugador
+    public int missCounter; // Contador de las veces que le damos a un objeto Bad
+    public int totalMisses = 3; // Número máximo de veces que podemos darle a un objeto Bad
 
     private void Start()
     {
-        StartCoroutine("SpawnRandomTarget");
-        score = 0;
-    }
-
-    private void Update()
-    {
-        scoreText.text = $"Score: {score}";
+       
     }
 
     public Vector3 RandomSpawnPosition()
     {
-        // genera pos aleatoria en uno de los centros de los 16 cuadrados
+        // Genera una posición aleatoria en uno de los centros de los 16 cuadrados de la rejilla
         int randomIntX = Random.Range(0, numberRows);
         int randomIntY = Random.Range(0, numberRows);
         float randomPosX = minX + randomIntX * spaceBetweenSquares;
@@ -48,18 +48,52 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnRate);
 
-            int randomInedx = Random.Range(0, targetPrefabs.Length);
+            int randomIndex = Random.Range(0, targetPrefabs.Length);
             randomSpawnPos = RandomSpawnPosition();
 
-            while (targetPosition.Contains(randomSpawnPos))
+            while (targetPositions.Contains(randomSpawnPos))
             {
                 randomSpawnPos = RandomSpawnPosition();
             }
 
-            Instantiate(targetPrefabs[randomInedx], randomSpawnPos, targetPrefabs[randomInedx].transform.rotation);
-            targetPosition.Add(randomSpawnPos);
+            Instantiate(targetPrefabs[randomIndex],
+                randomSpawnPos,
+                targetPrefabs[randomIndex].transform.rotation);
+            targetPositions.Add(randomSpawnPos);
         }
+
+    }
+
+    public void UpdateScore(int pointsToAdd)
+    {
+        score += pointsToAdd;
+        scoreText.text = $"Score: {score}";
+    }
+
+    public void GameOver()
+    {
+        gameOver = true;
+        gameOverPanel.gameObject.SetActive(true);
+    }
+
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartGame(int difficulty)
+    {
         
+        score = 0;
+        UpdateScore(0);
+        missCounter = 0;
+        gameOver = false;
+        gameOverPanel.SetActive(false);
+        menuPanel.SetActive(false);
+        spawnRate = 1;
+        spawnRate /= difficulty;
+        StartCoroutine("SpawnRandomTarget");
     }
 
 }
