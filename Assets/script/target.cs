@@ -6,53 +6,77 @@ public class target : MonoBehaviour
 {
     public ParticleSystem explosionParticle;
 
-    private float timeDestroy = 2f; // Tiempo que tardará en destruirse el target por sí solo
+
     private GameManager gameManagerScript;
+
+    private bool clickOnGoodTarget;
 
     [SerializeField] private int points; // Puntos que da el target
 
     void Start()
     {
-        // Destruye el objeto tras 2 segundos
-        Destroy(gameObject, timeDestroy);
 
         gameManagerScript = FindObjectOfType<GameManager>();
+
+        // Destruye el objeto tras 2 segundos
+        Destroy(gameObject, gameManagerScript.timeDestroy);
+
+
     }
 
     private void OnMouseDown()
     {
-        if (!gameManagerScript.gameOver)
+        if (gameObject.CompareTag("Good"))
         {
-            // Dar o quitar puntos
-            gameManagerScript.UpdateScore(points);
+            if (!gameManagerScript.gameOver)
+            {
+                clickOnGoodTarget = true;
 
-            Instantiate(explosionParticle,
-                transform.position,
-                explosionParticle.transform.rotation);
+                gameManagerScript.UpdateScore(points);
+            }
 
             Destroy(gameObject);
 
-            if (gameObject.CompareTag("Good"))
-            {
-                // Musiquita de ¡bien hecho!
-            }
-            else if (gameObject.CompareTag("Bad"))
-            {
-                gameManagerScript.missCounter += 1;
+            // Dar puntos, sistema de particulas, musiquita
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
 
-                // Se da Game Over si le damos 3 veces a un objeto Bad
-                if (gameManagerScript.missCounter >= gameManagerScript.totalMisses)
-                {
-                    gameManagerScript.GameOver();
-                }
+        }
+        else if (gameObject.CompareTag("Bad"))
+        {
+            Destroy(gameObject);
+            gameManagerScript.missCounter += 1;
 
-                // Musiquita de Game Over o mal hecho
+            IsGameOver();
+
+            // Gameover, restar puntos, quitar vida, sistema de particulas, destruir calavera
+        }
+
+    }
+
+    private void IsGameOver()
+    {
+        if (!gameManagerScript.gameOver)
+        {
+            gameManagerScript.missCounter += 1;
+            gameManagerScript.UpdateLives();
+
+            // Se da Game Over si le damos 3 veces a un objeto Bad
+            if (gameManagerScript.missCounter >= gameManagerScript.totalMisses)
+            {
+                gameManagerScript.GameOver();
             }
         }
+
+        // Musiquita de Game Over o mal hecho
     }
 
     private void OnDestroy()
     {
         gameManagerScript.targetPositions.Remove(transform.position);
+
+        if (gameObject.CompareTag("Good") && !clickOnGoodTarget)
+        {
+            IsGameOver();
+        }
     }
 }
